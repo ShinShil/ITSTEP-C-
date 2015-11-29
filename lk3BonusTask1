@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lk3taskBonus1
+{
+    abstract class Animal
+    {
+        protected string name;
+        int legsAmount;
+
+        public int LegsAmount
+        {
+            get { return legsAmount; }
+            set { legsAmount = value; }
+        }
+
+
+        public Animal() { name = "undefeined"; }
+        public Animal(string _name) { name = _name; }
+        public abstract void Voice();
+        public virtual void Show()
+        {
+            Console.WriteLine("This is: " + name);
+        }
+    }
+
+    class Dog:Animal
+    {
+        protected string poroda;
+        public Dog():base()
+        {
+            poroda = "undefined";
+        }
+        public Dog(string _poroda) :base("Dog")
+        {
+            LegsAmount = 4;
+            poroda = _poroda;
+        }
+        public override void Show()
+        {
+            Console.WriteLine("This is {0}, it's poroda - {1}", name, poroda);
+        }
+        public override void Voice()
+        {
+            Console.WriteLine("Gaw-gaw");
+        }
+    }
+
+    class HomeDog:Dog
+    {
+        string persName;
+        public HomeDog():base()
+        {
+            persName = "undefined";
+        }
+        public HomeDog(string _pesrName, string _poroda):base(_poroda)
+        {
+            persName = _pesrName;
+        }
+        public override void Show()
+        {
+            Console.WriteLine("This homed dog. Poroda: {0}, HomeName: {1}",poroda, persName);
+        }
+        public override void Voice()
+        {
+            base.Voice();
+        }
+    }
+
+    class Cat:Animal
+    {
+        public Cat() :base("Cat")
+        {
+
+        }
+
+        public override void Voice()
+        {
+            Console.WriteLine("Myaw");
+        }
+
+        public override void Show()
+        {
+            base.Show();
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Animal[] animals = new Animal[3];
+            animals[0] = new Dog("pikinez");
+            animals[1] = new Dog("doberman");
+            animals[2] = new Cat();
+            for(int i = 0; i<3; ++i)
+            {
+                Console.WriteLine("--------------------------------");
+                animals[i].Show();
+                animals[i].Voice();
+            }
+        }
+    }
+}
