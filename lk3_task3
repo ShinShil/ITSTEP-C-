@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lk3_task3
+{
+    class Program
+    {
+        class Equal
+        {
+            public decimal a;
+            public decimal b;
+
+            public decimal A
+            {
+                get { return a; }
+            }
+            public decimal B
+            {
+                get { return b; }
+            }
+
+            public void Show()
+            {
+                Console.WriteLine("{0}x + {1}x = 0", a, b);
+            }
+
+            public Equal()
+            {
+                a = 0;
+                b = 0;
+            }
+
+            
+            public void Parse(string str)
+            {
+                if (!parse(str, this))
+                    throw new FormatException();
+            }
+
+            private static bool parse(string str, Equal obj)
+            {
+                int markerAmount = 0;
+                char marker = 'c';
+                for (int i = 0; i < str.Length; ++i)
+                {
+                    if (str[i] < '0' || str[i] > '9')
+                        if (str[i] != ' ' && str[i] != ',' && str[i] != '.')
+                            return false;
+
+                    if (str[i] == ' ' || str[i] == ',')
+                    {
+                        marker = str[i];
+                        ++markerAmount;
+                    }
+                    if (markerAmount >= 2)
+                        return false;
+                }
+                if (marker == 'c')
+                    return false;
+                string[] temp = str.Split(marker);
+                if (!Decimal.TryParse(temp[0], out obj.a)) return false;
+                if (!Decimal.TryParse(temp[1], out obj.b)) return false;
+
+                return true;
+            }
+        }
+
+        class SystemEqual
+        {
+            private Equal first;
+            private Equal second;
+
+            public SystemEqual()
+            {
+                first = new Equal();
+                second = new Equal();
+            }
+
+            public SystemEqual(string str1, string str2)
+            {
+                first = new Equal();
+                second = new Equal();
+                first.Parse(str1);
+                second.Parse(str2);
+            }
+
+            public void SetEquas(string str1, string str2)
+            {
+                first.Parse(str1);
+                second.Parse(str2);
+            }
+
+            public void FindAnswer(out decimal x, out decimal  y)
+            {
+                if (first.a == second.a && first.b == second.b)
+                {
+                    
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    x = 0;
+                    y = 0;
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+           
+            try {
+                decimal x, y;
+                SystemEqual a = new SystemEqual("2,2", "2,2");
+                a.FindAnswer(out x, out y);
+                Console.WriteLine("X = {0}; Y = {1}", x, y);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("X = {0}; Y = {1}", x, y);
+
+            }
+        }
+    }
+}
