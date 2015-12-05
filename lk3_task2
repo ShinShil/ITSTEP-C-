@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lk3_task2
+{
+    class Equal
+    {
+        private decimal a;
+        private decimal b;
+
+        public void Show()
+        {
+            Console.WriteLine("{0}x + {1}x = 0", a, b);
+        }
+
+        public Equal()
+        {
+            a = 0;
+            b = 0;
+        }
+
+        public void Parse(string str)
+        {
+            if (!parse(str, this))
+                    throw new FormatException();
+        }
+
+        private static bool parse(string str, Equal obj)
+        {
+            int markerAmount = 0;
+            char marker = 'c';
+            for(int i = 0; i<str.Length; ++i)
+            {
+                if (str[i] < '0' || str[i] > '9')
+                    if(str[i] != ' ' && str[i] != ',' && str[i] != '.')
+                    return false;
+
+                if (str[i] == ' ' || str[i] == ',')
+                {
+                    marker = str[i];
+                    ++markerAmount;
+                }
+                if (markerAmount >= 2)
+                    return false;
+            }
+            if (marker == 'c')
+                return false;
+            string[] temp = str.Split(marker);
+            if(!Decimal.TryParse(temp[0], out obj.a))return false;
+            if(!Decimal.TryParse(temp[1], out obj.b))return false;
+
+            return true;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Equal a = new Equal();
+            try {
+                a.Parse("4 5,4");
+                a.Show();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
