@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lk3_task4
+{
+
+    namespace Miracle
+    {
+        abstract class Miracle
+        {
+            public abstract void Show();
+        }
+    }
+    
+    namespace Miracles
+    {
+        using Miracle;
+        class VavilonGarden: Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Fly Gardens in Vavilon");
+            }
+        }
+
+        class CheopsPyramid: Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Cheops Pyramid in Egypt");
+            }
+        }
+
+        class ZevsStatue:Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Zevs's statue in Olympia");
+            }
+        }
+
+        class ArthemidaTemple:Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Arthemida temple in Greece");
+            }
+        }
+
+        class MauzoleumGalikarnas:Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Mauzoleum in Galikornas");
+            }
+        }
+
+        class KolossRadosskii:Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Kolos Radoskii in Greece");
+            }
+        }
+
+        class AlexandriyaLighthouse:Miracle
+        {
+            public override void Show()
+            {
+                Console.WriteLine("Lighthouse in Alexandriya");
+            }
+        }
+    }
+
+    namespace EntryPoint
+    {
+        using Miracle;
+        using Miracles;
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                Miracle[] a = new Miracle[7];
+                a[0] = new VavilonGarden();
+                a[1] = new KolossRadosskii();
+                a[2] = new MauzoleumGalikarnas();
+                a[3] = new AlexandriyaLighthouse();
+                a[4] = new ZevsStatue();
+                a[5] = new ArthemidaTemple();
+                a[6] = new CheopsPyramid();
+                
+                for(int i = 0; i<a.Length; ++i)
+                {
+                    a[i].Show();
+                }
+            }
+        }
+    }
+}
+
