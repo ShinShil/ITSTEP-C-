@@ -1,0 +1,111 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lk3_task6
+{
+    class ComplexDigit
+    {
+        private decimal x;
+        private decimal y;
+        private decimal arg;
+        private decimal abs;
+        private void CountArgAbs()
+        {
+            if (y == 0)
+                arg = 0;
+            else
+                arg = (decimal)Math.Atan((double)x / (double)y);
+            abs = (decimal)Math.Sqrt((double)(x * x + y * y));
+        }
+
+        public ComplexDigit()
+        {
+            x = 0;
+            y = 0;
+            CountArgAbs();
+        }
+
+        public ComplexDigit(decimal X, decimal Y)
+        {
+            x = X;
+            y = Y;
+            CountArgAbs();
+        }
+
+        public decimal X
+        {
+            get { return x; }
+            set { x = value; CountArgAbs();}
+        }
+
+        public decimal Y
+        {
+            get { return y; }
+            set { y = value; CountArgAbs(); }
+        }
+
+        public decimal Arg
+        {
+            get { return arg; }
+        }
+
+        public decimal Abs
+        {
+            get { return abs; }
+        }
+
+        public void PringAlgForm()
+        {
+            Console.WriteLine("{0} + {1}*i", x, y);
+        }
+
+        public static ComplexDigit operator +(ComplexDigit cpx1, ComplexDigit cpx2)
+        {
+            return new ComplexDigit(cpx1.X + cpx2.X, cpx1.Y + cpx2.Y);
+        }
+
+        public static ComplexDigit operator -(ComplexDigit cpx1, ComplexDigit cpx2)
+        {
+            return new ComplexDigit(cpx1.X - cpx2.X, cpx1.Y - cpx2.Y);
+        }
+
+        public static ComplexDigit operator *(ComplexDigit cpx1, ComplexDigit cpx2)
+        {
+            return new ComplexDigit(cpx1.X * cpx2.X - cpx1.Y * cpx2.Y, cpx1.Y * cpx2.X + cpx1.X * cpx2.Y);
+        }
+
+        public static ComplexDigit operator /(ComplexDigit cpx1, ComplexDigit cpx2)
+        {
+            return new ComplexDigit((cpx1.X * cpx2.X + cpx1.Y * cpx2.Y) / cpx2.Abs * cpx2.Abs, (cpx1.Y * cpx2.X - cpx1.X * cpx2.Y) / cpx2.Abs * cpx2.Abs);
+        }
+
+        public static ComplexDigit operator *(int a, ComplexDigit z)
+        {
+            return new ComplexDigit(a, 0) * z;
+        }
+
+        public static ComplexDigit operator -(ComplexDigit z, int a)
+        {
+            return z - new ComplexDigit(a, 0);
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} + {1}*i", x, y);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ComplexDigit Z = new ComplexDigit(1, 1);
+            ComplexDigit z1;
+            z1 = Z - (Z * Z * Z - 1) / (3 * Z * Z);
+            Console.WriteLine("z1 = {0}", z1);
+        }
+    }
+}
